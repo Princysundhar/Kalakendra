@@ -1,0 +1,290 @@
+
+
+{% extends 'admin/admin_index.html' %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tutor Management</title>
+<style>
+    :root {
+        --primary-color: #3498db;
+        --primary-hover: #2980b9;
+        --secondary-color: #6c757d;
+        --danger-color: #dc3545;
+        --danger-hover: #c82333;
+        --success-color: #28a745;
+        --success-hover: #218838;
+        --info-color: #17a2b8;
+        --info-hover: #138496;
+        --light-gray: #f8f9fa;
+        --border-color: #e9ecef;
+        --text-color: #495057;
+        --shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .table-container {
+        max-width: 100%;
+        margin: 30px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        border-top: 4px solid var(--primary-color);
+        overflow-x: auto;
+    }
+
+    .page-title {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        font-size: 24px;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .page-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: var(--primary-color);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 14px;
+    }
+
+    th {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    td {
+        padding: 15px;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: middle;
+    }
+
+    tr:nth-child(even) {
+        background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    tr:hover {
+        background-color: rgba(52, 152, 219, 0.1);
+    }
+
+    .tutor-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid var(--primary-color);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 120px;
+    }
+
+    .action-btn {
+        display: inline-block;
+        padding: 8px 12px;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.3s;
+        text-align: center;
+    }
+
+    .edit-btn {
+        background-color: var(--primary-color);
+    }
+
+    .edit-btn:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(41, 128, 185, 0.3);
+    }
+
+    .delete-btn {
+        background-color: var(--danger-color);
+    }
+
+    .delete-btn:hover {
+        background-color: var(--danger-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
+    }
+
+    .view-btn {
+        background-color: var(--info-color);
+    }
+
+    .view-btn:hover {
+        background-color: var(--info-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(23, 162, 184, 0.3);
+    }
+
+    .allocate-btn {
+        background-color: var(--success-color);
+    }
+
+    .allocate-btn:hover {
+        background-color: var(--success-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+    }
+
+    .contact-info {
+        font-family: monospace;
+        font-size: 13px;
+    }
+
+    /* Search Bar Styles */
+    .search-container {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .search-input {
+        padding: 10px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        width: 300px;
+        font-size: 14px;
+        transition: all 0.3s;
+    }
+
+    .search-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .table-container {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    @media (max-width: 992px) {
+        .table-container {
+            padding: 20px;
+        }
+        th, td {
+            padding: 12px;
+            white-space: normal;
+        }
+        .tutor-image {
+            width: 60px;
+            height: 60px;
+        }
+        .search-input {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+
+<body>
+<div class="table-container">
+    <div class="page-title">Tutor Management</div>
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by tutor name..." onkeyup="searchTutors()">
+    </div>
+    <form id="form1" name="form1" method="post" action="">
+      <table id="tutorTable">
+        <thead>
+            <tr>
+              <th>Sl.No</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Contact</th>
+              <th>Image</th>
+              <th>Place</th>
+              <th>Landmark</th>
+              <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for i in res %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ i.name }}</td>
+              <td>{{ i.email }}</td>
+              <td class="contact-info">{{ i.contact }}</td>
+              <td><img src="{{ i.image }}" class="tutor-image" alt="{{ i.name }}"/></td>
+              <td>{{ i.place }}</td>
+              <td>{{ i.landmark }}</td>
+              <td>
+                <div class="action-buttons">
+                  <a href="/admin_edit_tutor/{{ i.id }}" class="action-btn edit-btn">Edit</a>
+                  <a href="/admin_remove_tutor/{{ i.id }}" class="action-btn delete-btn"
+                     onclick="return confirm('Are you sure you want to remove this tutor?')">
+                     Remove
+                  </a>
+                  <a href="/admin_view_tutor_request/{{ i.id }}" class="action-btn view-btn">View Requests</a>
+                  <a href="/admin_allocate_tutor/{{ i.id }}" class="action-btn allocate-btn">Allocate</a>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </form>
+</div>
+
+<script>
+function searchTutors() {
+    // Get input value and convert to lowercase
+    var input = document.getElementById("searchInput");
+    var filter = input.value.toLowerCase();
+
+    // Get table and rows
+    var table = document.getElementById("tutorTable");
+    var rows = table.getElementsByTagName("tr");
+
+    // Loop through all table rows (starting from index 1 to skip header)
+    for (var i = 1; i < rows.length; i++) {
+        // Get the name cell (second cell in each row)
+        var nameCell = rows[i].getElementsByTagName("td")[1];
+        if (nameCell) {
+            var name = nameCell.textContent || nameCell.innerText;
+            // If the name matches the search query, display the row, otherwise hide it
+            if (name.toLowerCase().indexOf(filter) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+}
+</script>
+</body>
+</html>
+{% endblock %}

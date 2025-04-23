@@ -1,0 +1,460 @@
+{#<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">#}
+{#<html xmlns="http://www.w3.org/1999/xhtml">#}
+{#<head>#}
+{#<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />#}
+{#<title>Untitled Document</title>#}
+{#</head>#}
+{##}
+{#<body>#}
+{#<form id="form1" name="form1" method="post" action="/login_post">#}
+{#    {% csrf_token %}#}
+{#  <table width="200" border="1">#}
+{#    <tr>#}
+{#      <th scope="row">Username</th>#}
+{#      <td><label for="textfield"></label>#}
+{#      <input type="text" name="textfield" id="textfield" /></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <th scope="row">Password</th>#}
+{#      <td><label for="textfield2"></label>#}
+{#      <input type="password" name="textfield2" id="textfield2" /></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <th colspan="2" scope="row"><input type="submit" name="button" id="button" value="Login" />#}
+{#      <a href="/user_register">User Registration</a>#}
+{#      </th>#}
+{#    </tr>#}
+{#  </table>#}
+{#</form>#}
+{#</body>#}
+{#</html>#}
+
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>School Festival Login</title>#}
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">#}
+{#    <style>#}
+{#        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');#}
+{##}
+{#        * {#}
+{#            margin: 0;#}
+{#            padding: 0;#}
+{#            box-sizing: border-box;#}
+{#            font-family: 'Poppins', sans-serif;#}
+{#        }#}
+{##}
+{#        body {#}
+{#            background-image: url('/static/ndesigns/img/hero/bg5.jpeg');#}
+{#            background-size: cover;#}
+{#            background-position: center;#}
+{#            background-repeat: no-repeat;#}
+{#            height: 100vh;#}
+{#            display: flex;#}
+{#            justify-content: center;#}
+{#            align-items: center;#}
+{#            position: relative;#}
+{#        }#}
+{##}
+{#        body::before {#}
+{#            content: '';#}
+{#            position: absolute;#}
+{#            top: 0;#}
+{#            left: 0;#}
+{#            width: 100%;#}
+{#            height: 100%;#}
+{#            background-color: rgba(0, 0, 0, 0.5);#}
+{#            z-index: 1;#}
+{#        }#}
+{##}
+{#        .login-container {#}
+{#            position: relative;#}
+{#            z-index: 2;#}
+{#            width: 400px;#}
+{#            background: rgba(255, 255, 255, 0.9);#}
+{#            border-radius: 15px;#}
+{#            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);#}
+{#            padding: 40px;#}
+{#            text-align: center;#}
+{#            animation: fadeIn 0.8s ease-in-out;#}
+{#        }#}
+{##}
+{#        .festival-icon {#}
+{#            font-size: 60px;#}
+{#            color: #FF6B6B;#}
+{#            margin-bottom: 20px;#}
+{#        }#}
+{##}
+{#        h2 {#}
+{#            color: #333;#}
+{#            margin-bottom: 30px;#}
+{#            font-weight: 600;#}
+{#        }#}
+{##}
+{#        .input-group {#}
+{#            margin-bottom: 25px;#}
+{#            text-align: left;#}
+{#        }#}
+{##}
+{#        .input-group label {#}
+{#            display: block;#}
+{#            margin-bottom: 8px;#}
+{#            color: #555;#}
+{#            font-weight: 500;#}
+{#        }#}
+{##}
+{#        .input-field {#}
+{#            position: relative;#}
+{#        }#}
+{##}
+{#        .input-field i {#}
+{#            position: absolute;#}
+{#            left: 15px;#}
+{#            top: 50%;#}
+{#            transform: translateY(-50%);#}
+{#            color: #888;#}
+{#        }#}
+{##}
+{#        .input-field input {#}
+{#            width: 100%;#}
+{#            padding: 12px 15px 12px 45px;#}
+{#            border: 2px solid #ddd;#}
+{#            border-radius: 8px;#}
+{#            font-size: 16px;#}
+{#            transition: all 0.3s;#}
+{#        }#}
+{##}
+{#        .input-field input:focus {#}
+{#            border-color: #FF6B6B;#}
+{#            outline: none;#}
+{#            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);#}
+{#        }#}
+{##}
+{#        .btn-login {#}
+{#            width: 100%;#}
+{#            padding: 12px;#}
+{#            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);#}
+{#            border: none;#}
+{#            border-radius: 8px;#}
+{#            color: white;#}
+{#            font-size: 16px;#}
+{#            font-weight: 600;#}
+{#            cursor: pointer;#}
+{#            transition: all 0.3s;#}
+{#            margin-top: 10px;#}
+{#        }#}
+{##}
+{#        .btn-login:hover {#}
+{#            background: linear-gradient(45deg, #FF8E8E, #FF6B6B);#}
+{#            transform: translateY(-2px);#}
+{#            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);#}
+{#        }#}
+{##}
+{#        .register-link {#}
+{#            margin-top: 20px;#}
+{#            color: #555;#}
+{#        }#}
+{##}
+{#        .register-link a {#}
+{#            color: #FF6B6B;#}
+{#            text-decoration: none;#}
+{#            font-weight: 500;#}
+{#            transition: all 0.3s;#}
+{#        }#}
+{##}
+{#        .register-link a:hover {#}
+{#            text-decoration: underline;#}
+{#        }#}
+{##}
+{#        .confetti {#}
+{#            position: absolute;#}
+{#            width: 10px;#}
+{#            height: 10px;#}
+{#            background-color: #f00;#}
+{#            border-radius: 50%;#}
+{#            animation: fall 5s linear infinite;#}
+{#        }#}
+{##}
+{#        @keyframes fadeIn {#}
+{#            from { opacity: 0; transform: translateY(20px); }#}
+{#            to { opacity: 1; transform: translateY(0); }#}
+{#        }#}
+{##}
+{#        @keyframes fall {#}
+{#            to { transform: translateY(100vh); }#}
+{#        }#}
+{##}
+{#        @media (max-width: 480px) {#}
+{#            .login-container {#}
+{#                width: 90%;#}
+{#                padding: 30px 20px;#}
+{#            }#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#    <div class="login-container">#}
+{#        <div class="festival-icon">#}
+{#            <i class="fas fa-mask"></i> <!-- Festival mask icon -->#}
+{#        </div>#}
+{#        <h2>School Festival Login</h2>#}
+{##}
+{#        <form id="form1" name="form1" method="post" action="/login_post">#}
+{#            {% csrf_token %}#}
+{#            <div class="input-group">#}
+{#                <label for="textfield">Username</label>#}
+{#                <div class="input-field">#}
+{#                    <i class="fas fa-user"></i>#}
+{#                    <input type="text" name="textfield" id="textfield" placeholder="Enter your username" />#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="input-group">#}
+{#                <label for="textfield2">Password</label>#}
+{#                <div class="input-field">#}
+{#                    <i class="fas fa-lock"></i>#}
+{#                    <input type="password" name="textfield2" id="textfield2" placeholder="Enter your password" />#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <button type="submit" class="btn-login">Login</button>#}
+{##}
+{#            <div class="register-link">#}
+{#                Don't have an account? <a href="/user_register">Register here</a>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
+{##}
+{#    <script>#}
+{#        // Create confetti elements#}
+{#        function createConfetti() {#}
+{#            const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFD166', '#9B5DE5'];#}
+{#            const confettiCount = 30;#}
+{##}
+{#            for (let i = 0; i < confettiCount; i++) {#}
+{#                const confetti = document.createElement('div');#}
+{#                confetti.className = 'confetti';#}
+{#                confetti.style.left = Math.random() * 100 + 'vw';#}
+{#                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];#}
+{#                confetti.style.width = Math.random() * 8 + 5 + 'px';#}
+{#                confetti.style.height = confetti.style.width;#}
+{#                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';#}
+{#                confetti.style.opacity = Math.random() * 0.5 + 0.5;#}
+{#                document.body.appendChild(confetti);#}
+{##}
+{#                // Remove confetti after animation completes#}
+{#                setTimeout(() => {#}
+{#                    confetti.remove();#}
+{#                }, 5000);#}
+{#            }#}
+{#        }#}
+{##}
+{#        // Create confetti periodically#}
+{#        setInterval(createConfetti, 3000);#}
+{#        createConfetti(); // Initial confetti#}
+{#    </script>#}
+{#</body>#}
+{#</html>#}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Festival Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-image: url('/static/ndesigns/img/hero/bg5.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 2;
+            width: 500px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 50px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .festival-icon {
+            font-size: 70px;
+            color: #FF6B6B;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 35px;
+            font-weight: 600;
+            font-size: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .input-field {
+            position: relative;
+        }
+
+        .input-field i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 18px;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 15px 20px 15px 55px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 17px;
+            transition: all 0.3s;
+        }
+
+        .input-field input:focus {
+            border-color: #FF6B6B;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(45deg, #FF8E8E, #FF6B6B);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .register-link {
+            margin-top: 25px;
+            color: #555;
+            font-size: 16px;
+        }
+
+        .register-link a {
+            color: #FF6B6B;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .login-container {
+                width: 90%;
+                padding: 40px 30px;
+            }
+
+            .festival-icon {
+                font-size: 60px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="festival-icon">
+            <i class="fas fa-mask"></i> <!-- Festival mask icon -->
+        </div>
+        <h2>Step Into the World of Art</h2>
+
+        <form id="form1" name="form1" method="post" action="/login_post">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="textfield">Username</label>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="textfield" id="textfield" placeholder="Enter your username" required />
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="textfield2">Password</label>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="textfield2" id="textfield2" placeholder="Enter your password" required />
+                </div>
+            </div>
+
+            <button type="submit" class="btn-login">Login</button>
+
+            <div class="register-link">
+                Don't have an account? <a href="/user_register">Register here</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

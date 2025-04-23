@@ -1,0 +1,226 @@
+
+
+
+{% extends 'admin/admin_index.html' %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Feedback Management</title>
+<style>
+    :root {
+        --primary-color: #3498db;
+        --primary-hover: #2980b9;
+        --light-gray: #f8f9fa;
+        --border-color: #e9ecef;
+        --text-color: #495057;
+        --shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .feedback-container {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        border-top: 4px solid var(--primary-color);
+    }
+
+    .page-title {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        font-size: 24px;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .page-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: var(--primary-color);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 14px;
+    }
+
+    th {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: 500;
+    }
+
+    td {
+        padding: 15px;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: top;
+    }
+
+    tr:nth-child(even) {
+        background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    tr:hover {
+        background-color: rgba(52, 152, 219, 0.1);
+    }
+
+    .feedback-content {
+        line-height: 1.6;
+        padding: 10px;
+        background-color: white;
+        border-left: 3px solid var(--primary-color);
+        border-radius: 0 4px 4px 0;
+    }
+
+    .user-details {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .user-name {
+        font-weight: 500;
+        color: var(--primary-color);
+    }
+
+    .user-contact {
+        color: var(--text-color);
+        font-size: 13px;
+    }
+
+    .feedback-date {
+        color: var(--text-color);
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    /* Search bar styles */
+    .search-container {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .search-input {
+        padding: 10px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        width: 300px;
+        font-size: 14px;
+        transition: all 0.3s;
+    }
+
+    .search-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    }
+
+    .search-button {
+        padding: 10px 15px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .search-button:hover {
+        background-color: var(--primary-hover);
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .feedback-container {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    @media (max-width: 768px) {
+        .feedback-container {
+            padding: 20px;
+        }
+        table {
+            display: block;
+            overflow-x: auto;
+        }
+        th, td {
+            padding: 12px;
+        }
+        .feedback-date {
+            white-space: normal;
+        }
+        .search-container {
+            justify-content: center;
+        }
+        .search-input {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+
+<body>
+<div class="feedback-container">
+    <div class="page-title">Customer Feedback</div>
+    <form id="form1" name="form1" method="post" action="">
+      <div class="search-container">
+        <input type="text" name="search" id="search" class="search-input" placeholder="Search by username..." value="{{ search_query|default_if_none:'' }}" />
+        <button type="submit" class="search-button">Search</button>
+      </div>
+      <table>
+        <thead>
+            <tr>
+              <th>Sl.No</th>
+              <th>Feedback</th>
+              <th>Date</th>
+              <th>User Details</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for i in data %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>
+                <div class="feedback-content">
+                  {{ i.feedbacks }}
+                </div>
+              </td>
+              <td class="feedback-date">
+                {{ i.date }}
+              </td>
+              <td>
+                <div class="user-details">
+                  <span class="user-name">{{ i.USER.name }}</span>
+                  <span class="user-contact">{{ i.USER.contact }}</span>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </form>
+</div>
+</body>
+</html>
+{% endblock %}

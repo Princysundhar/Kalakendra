@@ -1,0 +1,221 @@
+
+
+
+
+{% extends 'user/new_user_index.html' %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Select Payment Method</title>
+<style>
+    :root {
+        --primary-color: #3498db;
+        --primary-hover: #2980b9;
+        --text-color: #495057;
+        --light-gray: #f8f9fa;
+        --border-color: #e9ecef;
+    }
+
+    .payment-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        overflow: hidden;
+    }
+
+    .payment-header {
+        background: linear-gradient(135deg, var(--primary-color), #5dade2);
+        color: white;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .payment-title {
+        font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        font-weight: 600;
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    .payment-form {
+        padding: 2rem;
+    }
+
+    .payment-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .payment-option {
+        display: flex;
+        align-items: center;
+        padding: 1.25rem;
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .payment-option:hover {
+        border-color: var(--primary-color);
+        background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    .payment-option.selected {
+        border-color: var(--primary-color);
+        background-color: rgba(52, 152, 219, 0.1);
+    }
+
+    .payment-option input[type="radio"] {
+        margin-right: 1rem;
+        width: 18px;
+        height: 18px;
+        accent-color: var(--primary-color);
+    }
+
+    .payment-label {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .payment-icon {
+        margin-right: 1rem;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+    }
+
+    .payment-text {
+        flex: 1;
+    }
+
+    .payment-name {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    .payment-description {
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+
+    .btn-submit {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-submit:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn-submit:disabled {
+        background-color: #6c757d;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+    @media (max-width: 768px) {
+        .payment-container {
+            margin: 1rem;
+            border-radius: 10px;
+        }
+
+        .payment-form {
+            padding: 1.5rem;
+        }
+    }
+</style>
+</head>
+
+<body>
+<div class="container">
+    <div class="payment-container">
+        <div class="payment-header">
+            <h2 class="payment-title">Select Payment Method</h2>
+        </div>
+
+        <div class="payment-form">
+            <form id="form1" name="form1" method="post" action="/user_costume_and_ornament_pay/{{ rid }}">
+                {% csrf_token %}
+                <div class="payment-options">
+                    <div class="payment-option" onclick="selectOption('online')">
+                        <label class="payment-label">
+                            <input type="radio" name="RadioGroup1" value="online" id="RadioGroup1_0" required style="display: none;" />
+                            <i class="fas fa-credit-card payment-icon"></i>
+                            <div class="payment-text">
+                                <div class="payment-name">Online Payment</div>
+                                <div class="payment-description">Secure payment via credit/debit card or UPI</div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="payment-option" onclick="selectOption('offline')">
+                        <label class="payment-label">
+                            <input type="radio" name="RadioGroup1" value="offline" id="RadioGroup1_1" required style="display: none;" />
+                            <i class="fas fa-money-bill-wave payment-icon"></i>
+                            <div class="payment-text">
+                                <div class="payment-name">Cash on Delivery</div>
+                                <div class="payment-description">Pay in cash when you receive your order</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    <i class="fas fa-check-circle"></i> Confirm Payment
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<script>
+    function selectOption(value) {
+        // Update radio button selection
+        document.getElementById(`RadioGroup1_${value === 'online' ? 0 : 1}`).checked = true;
+
+        // Update visual selection
+        const options = document.querySelectorAll('.payment-option');
+        options.forEach(option => {
+            option.classList.remove('selected');
+        });
+
+        // Highlight selected option
+        event.currentTarget.classList.add('selected');
+
+        // Enable submit button
+        document.getElementById('submitBtn').disabled = false;
+    }
+
+    // Initialize with submit button disabled until selection is made
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('submitBtn').disabled = true;
+    });
+</script>
+
+</body>
+</html>
+{% endblock %}

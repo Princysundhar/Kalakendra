@@ -1,0 +1,167 @@
+
+
+
+{% extends 'admin/admin_index.html' %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Update Return Status</title>
+<style>
+    :root {
+        --primary-color: #3498db;
+        --primary-hover: #2980b9;
+        --secondary-color: #6c757d;
+        --light-gray: #f8f9fa;
+        --border-color: #e9ecef;
+        --text-color: #495057;
+        --shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .form-wrapper {
+        max-width: 500px;
+        margin: 30px auto;
+        padding: 40px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+        border-top: 4px solid var(--primary-color);
+    }
+
+    .form-wrapper:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(52, 152, 219, 0.2);
+    }
+
+    .form-title {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        font-size: 24px;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .form-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: var(--primary-color);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: left;
+        padding: 12px 15px;
+        color: var(--text-color);
+        font-weight: 500;
+        font-size: 14px;
+        background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    td {
+        padding: 15px;
+    }
+
+    select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s;
+        box-sizing: border-box;
+        background-color: white;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23424242'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 15px;
+    }
+
+    select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        outline: none;
+    }
+
+    input[type="submit"] {
+        padding: 14px 25px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        letter-spacing: 0.5px;
+        width: auto;
+        display: block;
+        margin: 20px auto 0;
+    }
+
+    input[type="submit"]:hover {
+        background: var(--primary-hover);
+        box-shadow: 0 4px 8px rgba(41, 128, 185, 0.3);
+        transform: translateY(-2px);
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-wrapper {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    /* Status option styling */
+    option[value="delivered"] {
+        color: #28a745;
+    }
+
+    option[value="returned received"] {
+        color: #dc3545;
+    }
+</style>
+</head>
+
+<body>
+<div class="form-wrapper">
+    <div class="form-title">Update Return Status</div>
+    <form id="form1" name="form1" method="post" action="/update_return_status_post/{{ id }}">
+      <table width="200" border="0">
+        <tr>
+          <th scope="row">Status</th>
+          <td>
+            <select name="select" id="select" required>
+              <option value="delivered">Delivered</option>
+              <option value="returned received">Returned Received</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: center;">
+            <input type="submit" name="button" id="button" value="Update Status" />
+          </td>
+        </tr>
+      </table>
+    </form>
+</div>
+</body>
+</html>
+{% endblock %}
