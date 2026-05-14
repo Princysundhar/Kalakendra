@@ -70,7 +70,7 @@ def admin_add_category_post(request):
     import datetime
     dt = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     fs = FileSystemStorage()
-    fs.save(r"C:\Users\DELL\PycharmProjects\Kalakendra\myapp\static\icon\\"+dt+'.jpg',icon)
+    fs.save(r"C:\Users\OneTeam\Downloads\Kalakendra-main\Kalakendra-main\myapp\static\icon\\"+dt+'.jpg',icon)
     path = '/static/icon/'+dt+'.jpg'
     data = category.objects.filter(name=name,image=path)
     if data.exists():
@@ -110,7 +110,7 @@ def admin_add_tutor_post(request):
     import datetime
     dt = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     fs = FileSystemStorage()
-    fs.save(r"C:\Users\DELL\PycharmProjects\Kalakendra\myapp\static\tutor\\" + dt + '.jpg', image)
+    fs.save(r"C:\Users\OneTeam\Downloads\Kalakendra-main\Kalakendra-main\myapp\static\tutor\\" + dt + '.jpg', image)
     path = '/static/tutor/' + dt + '.jpg'
     place = request.POST['textfield4']
     landmark = request.POST['textfield5']
@@ -151,7 +151,7 @@ def admin_edit_tutor_post(request,id):
         import datetime
         dt = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
         fs = FileSystemStorage()
-        fs.save(r"C:\Users\DELL\PycharmProjects\Kalakendra\myapp\static\tutor\\" + dt + '.jpg', image)
+        fs.save(r"C:\Users\OneTeam\Downloads\Kalakendra-main\Kalakendra-main\myapp\static\tutor\\" + dt + '.jpg', image)
         path = '/static/tutor/' + dt + '.jpg'
         place = request.POST['textfield4']
         landmark = request.POST['textfield5']
@@ -275,7 +275,7 @@ def admin_add_ornament_costume_post(request,id):
     import datetime
     dt = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     fs = FileSystemStorage()
-    fs.save(r"C:\Users\DELL\PycharmProjects\Kalakendra\myapp\static\ornament_costume\\" + dt + '.jpg', image)
+    fs.save(r"C:\Users\OneTeam\Downloads\Kalakendra-main\Kalakendra-main\myapp\static\ornament_costume\\" + dt + '.jpg', image)
     path = '/static/ornament_costume/' + dt + '.jpg'
     amount = request.POST['textfield2']
     quantity = request.POST['textfield3']
@@ -317,7 +317,7 @@ def admin_edit_ornaments_and_costume_post(request,id):
         import datetime
         dt = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
         fs = FileSystemStorage()
-        fs.save(r"C:\Users\DELL\PycharmProjects\Kalakendra\myapp\static\ornament_costume\\" + dt + '.jpg', image)
+        fs.save(r"C:\Users\OneTeam\Downloads\Kalakendra-main\Kalakendra-main\myapp\static\ornament_costume\\" + dt + '.jpg', image)
         path = '/static/ornament_costume/' + dt + '.jpg'
         amount = request.POST['textfield2']
         quantity = request.POST['textfield3']
@@ -402,7 +402,7 @@ def user_register_post(request):
     import datetime
     dt = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     fs = FileSystemStorage()
-    fs.save(r"C:\Users\DELL\PycharmProjects\Kalakendra\myapp\static\users\\" + dt + '.jpg', image)
+    fs.save(r"C:\Users\OneTeam\Downloads\Kalakendra-main\Kalakendra-main\myapp\static\users\\" + dt + '.jpg', image)
     path = '/static/users/' + dt + '.jpg'
     place = request.POST['textfield4']
     landmark = request.POST['textfield5']
@@ -448,7 +448,7 @@ def manage_profile_post(request):
         import datetime
         dt = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
         fs = FileSystemStorage()
-        fs.save(r"C:\Users\DELL\PycharmProjects\Kalakendra\myapp\static\users\\" + dt + '.jpg', image)
+        fs.save(r"C:\Users\OneTeam\Downloads\Kalakendra-main\Kalakendra-main\myapp\static\users\\" + dt + '.jpg', image)
         path = '/static/users/' + dt + '.jpg'
         place = request.POST['textfield4']
         landmark = request.POST['textfield5']
@@ -771,4 +771,3 @@ def user_send_feedback_post(request):
     return HttpResponse("<script>alert('Success!');window.location='/user_send_feedback#aaa'</script>")
 
 
-# ------------------------------ END ------------------
