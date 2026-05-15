@@ -1,0 +1,232 @@
+
+
+
+{% extends 'admin/admin_index.html' %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Ornaments & Costumes Management</title>
+<style>
+    :root {
+        --primary-color: #3498db;
+        --primary-hover: #2980b9;
+        --danger-color: #dc3545;
+        --danger-hover: #c82333;
+        --light-gray: #f8f9fa;
+        --border-color: #e9ecef;
+        --text-color: #495057;
+        --shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .table-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        border-top: 4px solid var(--primary-color);
+        overflow-x: auto;
+    }
+
+    .page-title {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        font-size: 24px;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .page-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: var(--primary-color);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 14px;
+    }
+
+    th {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    td {
+        padding: 15px;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: middle;
+    }
+
+    tr:nth-child(even) {
+        background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    tr:hover {
+        background-color: rgba(52, 152, 219, 0.1);
+    }
+
+    .item-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .action-btn {
+        display: inline-block;
+        padding: 8px 12px;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.3s;
+        text-align: center;
+    }
+
+    .edit-btn {
+        background-color: var(--primary-color);
+    }
+
+    .edit-btn:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(41, 128, 185, 0.3);
+    }
+
+    .delete-btn {
+        background-color: var(--danger-color);
+    }
+
+    .delete-btn:hover {
+        background-color: var(--danger-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
+    }
+
+    .gender-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .gender-male {
+        background-color: #d1e7ff;
+        color: #0a58ca;
+    }
+
+    .gender-female {
+        background-color: #f8d7da;
+        color: #b02a37;
+    }
+
+    .details-text {
+        max-width: 250px;
+        white-space: normal;
+        word-wrap: break-word;
+        line-height: 1.5;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .table-container {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    @media (max-width: 992px) {
+        .table-container {
+            padding: 20px;
+        }
+        th, td {
+            padding: 12px;
+            white-space: normal;
+        }
+        .item-image {
+            width: 80px;
+            height: 80px;
+        }
+    }
+</style>
+</head>
+
+<body>
+<div class="table-container">
+    <div class="page-title">Ornaments & Costumes</div>
+    <form id="form1" name="form1" method="post" action="">
+      <table>
+        <thead>
+            <tr>
+              <th>Sl.No</th>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Gender</th>
+              <th>Details</th>
+              <th>Quantity</th>
+              <th>Amount</th>
+              <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for i in res2 %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ i.name }}</td>
+              <td><img src="{{ i.image }}" class="item-image" alt="{{ i.name }}"/></td>
+              <td>
+                <span class="gender-badge {% if i.gender == 'male' %}gender-male{% else %}gender-female{% endif %}">
+                  {{ i.gender|title }}
+                </span>
+              </td>
+              <td class="details-text">{{ i.details }}</td>
+              <td>{{ i.quantity }}</td>
+              <td>₹{{ i.amount }}</td>
+              <td>
+                <div class="action-buttons">
+                  <a href="/admin_edit_ornaments_and_costume/{{ i.id }}" class="action-btn edit-btn">Edit</a>
+                  <a href="/admin_remove_ornaments_and_costume/{{ i.id }}" class="action-btn delete-btn"
+                     onclick="return confirm('Are you sure you want to delete this item?')">
+                     Delete
+                  </a>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </form>
+</div>
+</body>
+</html>
+{% endblock %}

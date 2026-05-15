@@ -1,0 +1,203 @@
+
+
+
+{% extends 'admin/admin_index.html' %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Edit Batch</title>
+<style>
+    :root {
+        --primary-color: #3498db;
+        --primary-hover: #2980b9;
+        --secondary-color: #6c757d;
+        --light-gray: #f8f9fa;
+        --border-color: #e9ecef;
+        --text-color: #495057;
+        --shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .form-wrapper {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 40px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+        border-top: 4px solid var(--primary-color);
+    }
+
+    .form-wrapper:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(52, 152, 219, 0.2);
+    }
+
+    .form-title {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        font-size: 24px;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .form-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: var(--primary-color);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: left;
+        padding: 12px 15px;
+        color: var(--text-color);
+        font-weight: 500;
+        font-size: 14px;
+        background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    td {
+        padding: 15px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s;
+        box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    input[type="time"]:focus,
+    textarea:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        outline: none;
+    }
+
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    /* Date and Time Input Styling */
+    .datetime-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .datetime-group div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .datetime-group label {
+        margin-bottom: 5px;
+        font-size: 13px;
+        color: var(--secondary-color);
+    }
+
+    input[type="submit"] {
+        padding: 14px 25px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        letter-spacing: 0.5px;
+        width: auto;
+        display: block;
+        margin: 20px auto 0;
+    }
+
+    input[type="submit"]:hover {
+        background: var(--primary-hover);
+        box-shadow: 0 4px 8px rgba(41, 128, 185, 0.3);
+        transform: translateY(-2px);
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-wrapper {
+        animation: fadeIn 0.5s ease-out;
+    }
+</style>
+</head>
+
+<body>
+<div class="form-wrapper">
+    <div class="form-title">Edit Batch Details</div>
+    <form id="form1" name="form1" method="post" action="/admin_edit_batch_post/{{ batchs.id }}">
+      <table width="200" border="0">
+        <tr>
+          <th scope="row">Batch Name</th>
+          <td><input type="text" name="textfield" id="textfield" value="{{ batchs.name }}" required /></td>
+        </tr>
+        <tr>
+          <th scope="row">Description</th>
+          <td><textarea name="textarea" id="textarea" cols="45" rows="5" required>{{ batchs.description }}</textarea></td>
+        </tr>
+        <tr>
+          <th scope="row">Total Count</th>
+          <td><input type="text" name="textfield2" id="textfield2" value="{{ batchs.total_count }}" required /></td>
+        </tr>
+        <tr>
+          <th scope="row">Schedule</th>
+          <td>
+            <div class="datetime-group">
+              <div>
+                <label>Date</label>
+                <input type="date" name="textfield3" id="textfield3" value="{{ batchs.date }}" required />
+              </div>
+              <div>
+                <label>Time</label>
+                <input type="time" name="textfield4" id="textfield4" value="{{ batchs.time }}" required />
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Amount</th>
+          <td><input type="text" name="textfield5" id="textfield5" value="{{ batchs.amount }}" required /></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: center;">
+            <input type="submit" name="button" id="button" value="Update Batch" />
+          </td>
+        </tr>
+      </table>
+    </form>
+</div>
+</body>
+</html>
+{% endblock %}

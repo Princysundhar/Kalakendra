@@ -1,0 +1,301 @@
+
+
+
+{% extends 'admin/admin_index.html' %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Add New Item</title>
+<style>
+    :root {
+        --primary-color: #3498db;
+        --primary-hover: #2980b9;
+        --secondary-color: #6c757d;
+        --light-gray: #f8f9fa;
+        --border-color: #e9ecef;
+        --text-color: #495057;
+        --shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .form-wrapper {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 40px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+        border-top: 4px solid var(--primary-color);
+    }
+
+    .form-wrapper:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(52, 152, 219, 0.2);
+    }
+
+    .form-title {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        font-size: 24px;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .form-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: var(--primary-color);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: left;
+        padding: 12px 15px;
+        color: var(--text-color);
+        font-weight: 500;
+        font-size: 14px;
+        background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    td {
+        padding: 15px;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s;
+        box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    input[type="file"]:focus,
+    textarea:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        outline: none;
+    }
+
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    /* Radio Button Styling */
+    .radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .radio-option {
+        display: flex;
+        align-items: center;
+    }
+
+    .radio-option input[type="radio"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 2px solid var(--border-color);
+        border-radius: 50%;
+        margin-right: 10px;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .radio-option input[type="radio"]:checked {
+        border-color: var(--primary-color);
+    }
+
+    .radio-option input[type="radio"]:checked::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 10px;
+        height: 10px;
+        background: var(--primary-color);
+        border-radius: 50%;
+    }
+
+    .radio-option label {
+        cursor: pointer;
+        color: var(--text-color);
+    }
+
+    /* File Upload Styling */
+    .file-upload-wrapper {
+        position: relative;
+    }
+
+    .file-upload {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 25px;
+        background: var(--light-gray);
+        border: 2px dashed var(--border-color);
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .file-upload:hover {
+        border-color: var(--primary-color);
+        background: rgba(52, 152, 219, 0.05);
+    }
+
+    .file-upload i {
+        font-size: 24px;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+    }
+
+    .file-upload-text {
+        color: var(--secondary-color);
+        font-size: 14px;
+    }
+
+    .file-name {
+        margin-top: 8px;
+        font-size: 12px;
+        color: var(--primary-color);
+        display: none;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    input[type="submit"] {
+        padding: 14px 25px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        letter-spacing: 0.5px;
+        width: auto;
+        display: block;
+        margin: 20px auto 0;
+    }
+
+    input[type="submit"]:hover {
+        background: var(--primary-hover);
+        box-shadow: 0 4px 8px rgba(41, 128, 185, 0.3);
+        transform: translateY(-2px);
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-wrapper {
+        animation: fadeIn 0.5s ease-out;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+<div class="form-wrapper">
+    <div class="form-title">Add New Item</div>
+    <form action="/admin_add_ornament_costume_post/{{ id }}" method="post" enctype="multipart/form-data" name="form1" id="form1">
+      <table width="200" border="0">
+        <tr>
+          <th scope="row">Name</th>
+          <td><input type="text" name="textfield" id="textfield" placeholder="Enter item name" required /></td>
+        </tr>
+        <tr>
+          <th scope="row">Gender</th>
+          <td>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="RadioGroup1" value="male" id="RadioGroup1_0" required />
+                <label for="RadioGroup1_0">Male</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="RadioGroup1" value="female" id="RadioGroup1_1" required />
+                <label for="RadioGroup1_1">Female</label>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Image</th>
+          <td>
+            <div class="file-upload-wrapper">
+              <label for="fileField" class="file-upload">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span class="file-upload-text">Click to upload image</span>
+                <span class="file-name" id="file-name">No file chosen</span>
+              </label>
+              <input type="file" name="fileField" id="fileField" onchange="displayFileName(this)" />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Amount</th>
+          <td><input type="text" name="textfield2" id="textfield2" placeholder="Enter amount" required /></td>
+        </tr>
+        <tr>
+          <th scope="row">Quantity</th>
+          <td><input type="text" name="textfield3" id="textfield3" placeholder="Enter quantity" required /></td>
+        </tr>
+        <tr>
+          <th scope="row">Details</th>
+          <td><textarea name="textarea" id="textarea" cols="45" rows="5" placeholder="Enter item details"></textarea></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: center;">
+            <input type="submit" name="button" id="button" value="Add Item" />
+          </td>
+        </tr>
+      </table>
+    </form>
+</div>
+
+<script>
+    function displayFileName(input) {
+        const fileNameDisplay = document.getElementById('file-name');
+        if (input.files.length > 0) {
+            fileNameDisplay.textContent = input.files[0].name;
+            fileNameDisplay.style.display = 'block';
+        } else {
+            fileNameDisplay.style.display = 'none';
+        }
+    }
+</script>
+</body>
+</html>
+{% endblock %}

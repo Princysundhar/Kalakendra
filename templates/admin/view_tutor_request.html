@@ -1,0 +1,344 @@
+{% extends 'admin/admin_index.html' %}
+{% block body %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Request Management</title>
+<style>
+    :root {
+        --primary-color: #3498db;
+        --primary-hover: #2980b9;
+        --success-color: #28a745;
+        --success-hover: #218838;
+        --danger-color: #dc3545;
+        --danger-hover: #c82333;
+        --warning-color: #ffc107;
+        --warning-hover: #e0a800;
+        --info-color: #17a2b8;
+        --info-hover: #138496;
+        --light-gray: #f8f9fa;
+        --border-color: #e9ecef;
+        --text-color: #495057;
+        --shadow: 0 4px 15px rgba(0,0,0,0.1);
+        --card-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+
+    body {
+        margin: 0;
+        padding: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f7fa;
+    }
+
+    .main-container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .card-container {
+        max-width: 100%;
+        margin: 20px auto;
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
+        overflow: hidden;
+        border: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+        padding: 20px 30px;
+        color: white;
+        border-radius: 16px 16px 0 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .card-title {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+        text-align: center;
+        letter-spacing: 0.5px;
+    }
+
+    .card-body {
+        padding: 30px;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+        font-size: 14px;
+        border-radius: 0 0 16px 16px;
+        overflow: hidden;
+        min-width: 800px;
+    }
+
+    th {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: 500;
+        position: relative;
+    }
+
+    th:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background: rgba(255,255,255,0.2);
+    }
+
+    td {
+        padding: 15px;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: middle;
+    }
+
+    tr:nth-child(even) {
+        background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    tr:hover {
+        background-color: rgba(52, 152, 219, 0.1);
+    }
+
+    .user-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid var(--primary-color);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .user-image:hover {
+        transform: scale(1.05);
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .status-pending {
+        background-color: var(--warning-color);
+        color: #212529;
+    }
+
+    .status-approved {
+        background-color: var(--success-color);
+        color: white;
+    }
+
+    .status-rejected {
+        background-color: var(--danger-color);
+        color: white;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .action-btn {
+        display: inline-block;
+        padding: 8px 16px;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.3s;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .accept-btn {
+        background-color: var(--success-color);
+    }
+
+    .accept-btn:hover {
+        background-color: var(--success-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+    }
+
+    .reject-btn {
+        background-color: var(--danger-color);
+    }
+
+    .reject-btn:hover {
+        background-color: var(--danger-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+    }
+
+    .view-btn {
+        background-color: var(--info-color);
+    }
+
+    .view-btn:hover {
+        background-color: var(--info-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(23, 162, 184, 0.3);
+    }
+
+    .contact-info {
+        font-family: monospace;
+        font-size: 13px;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-container {
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1200px) {
+        .main-container {
+            padding: 0 10px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-header {
+            padding: 15px 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        table {
+            min-width: 700px;
+        }
+
+        .user-image {
+            width: 60px;
+            height: 60px;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        body {
+            padding: 10px;
+        }
+
+        .card-container {
+            border-radius: 12px;
+        }
+
+        .card-header {
+            padding: 12px 15px;
+        }
+
+        .card-title {
+            font-size: 18px;
+        }
+    }
+</style>
+</head>
+
+<body>
+<div class="main-container">
+    <div class="card-container">
+        <div class="card-header">
+            <h1 class="card-title">View Tutor Request</h1>
+        </div>
+        <div class="card-body">
+            <form id="form1" name="form1" method="post" action="">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sl.No</th>
+                            <th>User Name</th>
+                            <th>User Image</th>
+                            <th>User Contact</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in res4 %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.USER.name }}</td>
+                            <td><img src="{{ i.USER.image }}" class="user-image" alt="{{ i.USER.name }}"/></td>
+                            <td class="contact-info">{{ i.USER.contact }}</td>
+                            <td>{{ i.date }}</td>
+                            <td>
+                                <span class="status-badge
+                                {% if i.status == 'pending' %}status-pending
+                                {% elif i.status == 'approved' %}status-approved
+                                {% else %}status-rejected{% endif %}">
+                                {{ i.status|title }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="/accept_request/{{ i.id }}" class="action-btn accept-btn"
+                                    onclick="return confirm('Are you sure you want to accept this request?')">
+                                    Accept
+                                    </a>
+                                    <a href="/reject_request/{{ i.id }}" class="action-btn reject-btn"
+                                    onclick="return confirm('Are you sure you want to reject this request?')">
+                                    Reject
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

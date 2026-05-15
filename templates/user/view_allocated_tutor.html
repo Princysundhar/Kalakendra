@@ -1,0 +1,95 @@
+{% extends 'user/new_user_index.html' %}
+   {% block body1 %}
+
+
+
+
+
+               <div class="container-fluid blog py-5" id="ddd">
+    <div class="container py-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+            <h4 class="text-primary">Allocated Tutor</h4>
+            <h1 class="display-4 mb-4">We Provide Best Tutors</h1>
+            <p class="mb-0">A good teacher is like a candle — it consumes itself to light the way for others...</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            {% for i in res4 %}
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="{% widthratio forloop.counter 1 0.2 %}s">
+                <div class="blog-item h-100 d-flex flex-column">
+                    <div class="blog-img" style="height: 250px; overflow: hidden;">
+                        <img src="{{ i.TUTOR.image }}" class="img-fluid rounded-top w-100 h-100 object-fit-cover" alt="{{ i.TUTOR.name }}">
+                        <div class="blog-categiry py-2 px-4">
+                            <span>{{ i.TUTOR.specialization|default:"Tutor" }}</span>
+                        </div>
+                    </div>
+                    <div class="blog-content p-4 flex-grow-1 d-flex flex-column">
+                        <h5 class="mb-3">{{ i.TUTOR.name }}</h5>
+
+                        <div class="tutor-info mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="fa fa-envelope text-primary me-2"></span>
+                                <small>{{ i.TUTOR.email }}</small>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="fa fa-phone text-primary me-2"></span>
+                                <small>{{ i.TUTOR.contact }}</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="fa fa-map-marker text-primary me-2"></span>
+                                <small>{{ i.TUTOR.place }}</small>
+                            </div>
+                        </div>
+
+                        <p class="mb-3 flex-grow-1">
+                            <strong>Batch:</strong> {{ i.BATCH.name }}<br>
+                            <small class="text-muted">{{ i.TUTOR.bio|truncatechars:60 }}</small>
+                        </p>
+                        {% if i.BATCH and i.BATCH.total_count|add:0 > 0 %}
+
+                        <a href="/user_send_request/{{ i.id }}" class="btn btn-primary" style="color: white">Send Request</a>
+                        {% else %}
+                        Not Available
+                        {% endif %}
+{#                        <button class="btn btn-primary btn-sm align-self-start">#}
+{#                            Send Request <i class="fa fa-paper-plane ms-1"></i>#}
+{#                        </button>#}
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter == 4 %}{% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .object-fit-cover {
+        object-fit: cover;
+        object-position: center;
+    }
+    .blog-item {
+        transition: transform 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .blog-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+    .tutor-info small {
+        font-size: 0.85rem;
+    }
+    .btn-primary {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+    .blog-categiry {
+        background-color: rgba(13, 110, 253, 0.8);
+        color: white;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        border-radius: 4px;
+    }
+</style>
+
+{% endblock %}
